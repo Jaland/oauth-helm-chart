@@ -1,0 +1,112 @@
+{{- with $.Values.oauth }}
+{{- if .enabled }}
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: oauth2-proxy
+  labels:
+    app: feedback360
+    name: oauth2-proxy
+    {{- range $label := $.Values.global.labels }}
+    {{ $label.key }} : {{ tpl $label.value $ }}
+    {{- end}}
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    deploymentConfig: feedback360
+  template:
+    metadata:
+      name: feedback360
+      labels:
+        app: feedback360
+        deploymentConfig: feedback360
+    spec:
+      containers:
+        - name: oauth2-proxy
+          image: 'quay.io/oauth2-proxy/oauth2-proxy:v5.1.0'
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          env:
+            - name: OAUTH2_PROXY_PROVIDER
+              value: 'oidc'
+            - name: OAUTH2_PROXY_OIDC_ISSUER_URL
+              value: '{{ tpl $.Values.oauth.oidcIssuerUrl $ }}'
+            - name: OAUTH2_PROXY_HTTP_ADDRESS
+              value: 0.0.0.0:8080
+            - name: OAUTH2_PASS_ACCESS_TOKEN
+              value: 'true'
+            - name: OAUTH2_PROXY_WHITELIST_DOMAIN
+              value: "*"
+            - name: OAUTH2_PROXY_COOKIE_DOMAINS
+              value: '*{{ $.Values.global.cluster.baseDomain }}' {{- /* Paramatrize it should match the *.apps.dev311.openshift.opentlc.com*/}}
+            - name: OAUTH2_PROXY_COOKIE_SECURE
+              value: 'true'
+            - name: OAUTH2_PROXY_INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL
+              value: 'true'
+            - name: OAUTH2_PROXY_SKIP_PROVIDER_BUTTON
+              value: 'true'
+            {{- if $.Values.tlsSecured }}
+            - name: OAUTH2_PROXY_UPSTREAMS
+              value: 'http://{{ $.Values.frontend.name }}:{{ $.Values.frontend.port }}/,http://{{ $.Values.backend.name }}.{{ $.Release.Namespace }}.svc:{{ $.Values.backend.port }}/api/v1/'
+            {{- else }}
+            - name: OAUTH2_PROXY_UPSTREAMS
+              value: 'http://{{ $.Values.frontend.name }}:{{ $.Values.frontend.port }}/,http://{{ $.Values.backend.name }}:{{ $.Values.backend.port }}/api/v1/'
+            {{- end }}
+            - name: OAUTH2_PROXY_COOKIE_SECRET
+              value: 'fksdZJWUhzlfGw3Ve6POYc2jmjZogjCZod6x4kG'
+            - name: OAUTH2_PROXY_CLIENT_ID
+              value: 'consultant360'
+            - name: OAUTH2_PROXY_CLIENT_SECRET
+              value: '7463e6ad-5e03-4855-877f-360cdc1ef9d6'
+            - name: OAUTH2_PROXY_EMAIL_DOMAINS
+              value: '*'
+            - name: OAUTH2_PROXY_REDIRECT_URL
+              value: '{{ tpl .url $ }}/oauth2/callback'
+            - name: OAUTH2_PROXY_SKIP_AUTH_PREFLIGHT
+              value: 'true'
+            - name: OAUTH2_PROXY_SKIP_AUTH_REGEX
+              value: 'favicon.ico'
+            - name: OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY
+              value: 'true'
+            - name: OAUTH2_PROXY_REQUEST_LOGGING
+              value: 'false'
+            - name: OAUTH2_PROXY_AUTH_LOGGING
+              value: 'true'
+            - name: OAUTH2_PROXY_AUTH_LOGGING_FORMAT
+              value: >- 
+                {{`{"app":"consultant360" "type":"auth" "client":"{{.Client}}" "user":"{{.Username}}" "timestamp":"{{.Timestamp}}" "message":"{{.Message}}"}`}}
+            {{- if $.Values.tlsSecured }}
+              {{- include "tlsSecured.env.var" . | nindent 12 }}
+            {{- end }}
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+          {{- if $.Values.tlsSecured }}
+            {{- include "tlsSecured.container.volumeMount" . | indent 10 }}
+          {{- end }}
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      {{- if $.Values.tlsSecured }}
+        {{- include "tlsSecured.template.volumeMount" . | nindent 6 }}
+      {{- end }}
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+{{- end}}
+{{- end}}

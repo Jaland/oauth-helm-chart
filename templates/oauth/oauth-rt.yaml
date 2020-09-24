@@ -1,0 +1,25 @@
+{{- with $.Values.oauth }}
+{{- if .enabled }}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: feedback360
+  labels:
+    app: feedback360
+    name: oauth2-proxy
+    {{- range $label := $.Values.global.labels }}
+    {{ $label.key }} : {{ tpl $label.value $ }}
+    {{- end}}
+spec:
+  host: {{ tpl .host $ }}
+  port:
+    targetPort: '8443'
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: reencrypt
+  to:
+    kind: Service
+    name: oauth2-proxy
+  wildcardPolicy: None
+{{- end -}}
+{{- end -}}

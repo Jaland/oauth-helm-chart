@@ -1,0 +1,30 @@
+{{- with $.Values.oauth }}
+{{- if .enabled }}
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    service.alpha.openshift.io/serving-cert-secret-name: oauth2proxy
+  labels:
+    app: feedback360
+    name: oauth2-proxy
+    {{- range $label := $.Values.global.labels }}
+    {{ $label.key }} : {{ tpl $label.value $ }}
+    {{- end}}
+  name: oauth2-proxy
+spec:
+  ports:
+  - name: "8443"
+    port: 8443
+    targetPort: 8443
+    protocol: TCP
+  selector:
+    deploymentConfig: feedback360
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIpP:
+      timeoutSeconds: 3600
+status:
+  loadBalancer: {}
+{{- end -}}
+{{- end -}}

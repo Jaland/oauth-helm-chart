@@ -1,0 +1,19 @@
+---
+frontend:
+  name: manager-360-front
+  port: 8081
+
+backend:
+  name: survey-openapi-spring-service
+  port: 8080
+
+
+url: https://{{ tpl $.Values.host $ }}
+host: feedback360-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}
+oidcIssuerUrl: https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/consultant360
+
+#Required Values:
+global:
+  labels: []
+  cluster:
+    baseDomain: REQUIRED_GLOBAL_VARIBLE
