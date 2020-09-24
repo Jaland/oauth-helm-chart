@@ -3,9 +3,9 @@ entries:
   oauth-chart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2020-09-24T16:12:32.767022722-04:00"
+    created: "2020-09-24T16:15:15.383224387-04:00"
     description: A Helm chart for oauth
-    digest: 0bf5dcc372fdeb4173c00c537d930459827e26e1777cd81c0471d505bdc7966b
+    digest: 9237aea4f2016f934fabe41f156c00c440af9754ba241f078c1f7f9e84569a55
     name: oauth-chart
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2020-09-24T16:12:32.762781293-04:00"
+    created: "2020-09-24T16:15:15.370631486-04:00"
     description: A Helm chart for oauth
     digest: 5341e3e2acfe391078580b6f9d7e607f2e477c643f9877dc327590da35ff5b48
     name: oauth-chart
@@ -21,4 +21,4 @@ entries:
     urls:
     - https://jaland.github.io/oauth-helm-chart/release/oauth-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2020-09-24T16:12:32.760224667-04:00"
+generated: "2020-09-24T16:15:15.36805001-04:00"
