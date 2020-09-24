@@ -27,5 +27,5 @@ helm repo list
 
 ### Deploy chart
 ```
-helm install helm-example/my-app --name=oauth
+helm install oauth/oauth-chart --name=oauth
 ```
