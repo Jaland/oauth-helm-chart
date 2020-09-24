@@ -10,8 +10,9 @@ An example chart for deploying a oAuth on Openshift
 git checkout release
 helm package .
 mv  oauth-chart*.tgz release/
-checkout release
 helm repo index --url https://jaland.github.io/oauth-helm-chart/ .
+git add --all
+git commit -m "Release x.x.x"
 ```
 
 
