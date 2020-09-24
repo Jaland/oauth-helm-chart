@@ -1,4 +1,4 @@
-{{- with $.Values.oauth }}
+{{- with $.Values }}
 {{- if .enabled }}
 kind: Route
 apiVersion: route.openshift.io/v1

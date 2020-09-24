@@ -1,4 +1,4 @@
-{{- with $.Values.oauth }}
+{{- with $.Values }}
 {{- if .enabled }}
 kind: DeploymentConfig
 apiVersion: apps.openshift.io/v1
@@ -45,7 +45,7 @@ spec:
             - name: OAUTH2_PROXY_PROVIDER
               value: 'oidc'
             - name: OAUTH2_PROXY_OIDC_ISSUER_URL
-              value: '{{ tpl $.Values.oauth.oidcIssuerUrl $ }}'
+              value: '{{ tpl $.Values.oidcIssuerUrl $ }}'
             - name: OAUTH2_PROXY_HTTP_ADDRESS
               value: 0.0.0.0:8080
             - name: OAUTH2_PASS_ACCESS_TOKEN

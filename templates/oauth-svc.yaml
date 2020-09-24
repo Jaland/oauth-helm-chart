@@ -1,4 +1,4 @@
-{{- with $.Values.oauth }}
+{{- with $.Values }}
 {{- if .enabled }}
 kind: Service
 apiVersion: v1
@@ -22,7 +22,7 @@ spec:
     deploymentConfig: feedback360
   sessionAffinity: ClientIP
   sessionAffinityConfig:
-    clientIpP:
+    clientIP:
       timeoutSeconds: 3600
 status:
   loadBalancer: {}

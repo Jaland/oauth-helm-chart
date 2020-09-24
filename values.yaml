@@ -7,6 +7,7 @@ backend:
   name: backend-spring-service
   port: 8080
 
+enabled: true
 
 url: https://{{ tpl $.Values.host $ }}
 host: {{ $.Values.global.appname }}-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}
