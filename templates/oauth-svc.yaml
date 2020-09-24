@@ -1,4 +1,4 @@
-{{- with $.Values.oauth }}
+{{- with $.Values }}
 {{- if .enabled }}
 kind: Service
 apiVersion: v1
