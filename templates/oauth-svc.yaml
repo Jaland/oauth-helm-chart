@@ -22,7 +22,7 @@ spec:
     deploymentConfig: feedback360
   sessionAffinity: ClientIP
   sessionAffinityConfig:
-    clientIpP:
+    clientIp:
       timeoutSeconds: 3600
 status:
   loadBalancer: {}

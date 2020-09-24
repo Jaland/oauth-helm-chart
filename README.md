@@ -28,5 +28,6 @@ helm repo list
 
 ### Deploy chart
 ```
+helm repo update
 helm install oauth/oauth-chart --name-template oauth
 ```
