@@ -9,11 +9,11 @@ backend:
 
 enabled: true
 
-url: https://{{ tpl $.Values.host $ }}
-host: {{ $.Values.global.appname }}-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}
-oidcIssuerUrl: https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/consultant360
+url: "https://{{ tpl $.Values.host $ }}"
+host: "{{ $.Values.global.appname }}-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}"
+oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/consultant360"
 
-#Required Values:
+#Required Values
 global:
   labels: []
   appname: example-application
