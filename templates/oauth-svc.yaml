@@ -14,10 +14,9 @@ metadata:
   name: oauth2-proxy
 spec:
   ports:
-  - name: "8443"
-    port: 8443
-    targetPort: 8443
-    protocol: TCP
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
   selector:
     deploymentConfig: feedback360
   sessionAffinity: ClientIP
