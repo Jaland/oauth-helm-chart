@@ -11,7 +11,7 @@ enabled: true
 
 url: "https://{{ tpl $.Values.host $ }}"
 host: "{{ $.Values.global.appname }}-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}"
-oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/consultant360"
+oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/{{ $.Chart.Name }}"
 
 #Required Values
 global:
