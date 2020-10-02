@@ -89,7 +89,7 @@ spec:
               value: 'true'
             - name: OAUTH2_PROXY_AUTH_LOGGING_FORMAT
               value: >- 
-                {{`{"app":"consultant360" "type":"auth" "client":"{{.Client}}" "user":"{{.Username}}" "timestamp":"{{.Timestamp}}" "message":"{{.Message}}"}`}}
+                {{`{"app":"{{ $.Chart.Name }}" "type":"auth" "client":"{{.Client}}" "user":"{{.Username}}" "timestamp":"{{.Timestamp}}" "message":"{{.Message}}"}`}}
             {{- if $.Values.tlsSecured }}
               {{- include "tlsSecured.env.var" . | nindent 12 }}
             {{- end }}
