@@ -1,12 +1,4 @@
 ---
-frontend:
-  name: frontend-application
-  port: 8081
-
-backend:
-  name: backend-spring-service
-  port: 8080
-
 enabled: true
 
 url: "https://{{ tpl $.Values.host $ }}"
@@ -15,6 +7,12 @@ oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cl
 
 #Required Values
 global:
+  frontend:
+    name: frontend-application
+    port: 8081
+  backend:
+    name: backend-spring-service
+    port: 8080
   labels: []
   appname: oauth
   cluster:

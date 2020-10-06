@@ -62,10 +62,10 @@ spec:
               value: 'true'
             {{- if $.Values.tlsSecured }}
             - name: OAUTH2_PROXY_UPSTREAMS
-              value: 'http://{{ $.Values.frontend.name }}:{{ $.Values.frontend.port }}/,http://{{ $.Values.backend.name }}.{{ $.Release.Namespace }}.svc:{{ $.Values.backend.port }}/api/v1/'
+              value: 'http://{{ $.Values.global.frontend.name }}:{{ $.Values.global.frontend.port }}/,http://{{ $.Values.global.backend.name }}.{{ $.Release.Namespace }}.svc:{{ $.Values.global.backend.port }}/api/v1/'
             {{- else }}
             - name: OAUTH2_PROXY_UPSTREAMS
-              value: 'http://{{ $.Values.frontend.name }}:{{ $.Values.frontend.port }}/,http://{{ $.Values.backend.name }}:{{ $.Values.backend.port }}/api/v1/'
+              value: 'http://{{ $.Values.global.frontend.name }}:{{ $.Values.global.frontend.port }}/,http://{{ $.Values.global.backend.name }}:{{ $.Values.global.backend.port }}/api/v1/'
             {{- end }}
             - name: OAUTH2_PROXY_COOKIE_SECRET
               value: 'fksdZJWUhzlfGw3Ve6POYc2jmjZogjCZod6x4kG'
