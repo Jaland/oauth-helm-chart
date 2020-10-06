@@ -5,7 +5,7 @@ apiVersion: apps.openshift.io/v1
 metadata:
   name: oauth2-proxy
   labels:
-    app: feedback360
+    app: {{ $.Values.global.appname }}
     name: oauth2-proxy
     {{- range $label := $.Values.global.labels }}
     {{ $label.key }} : {{ tpl $label.value $ }}
@@ -27,13 +27,13 @@ spec:
   revisionHistoryLimit: 10
   test: false
   selector:
-    deploymentConfig: oauth
+    deploymentConfig: oauth2-proxy
   template:
     metadata:
-      name: oauth
+      name: oauth2-proxy
       labels:
         app: {{ $.Values.global.appname }}
-        deploymentConfig: oauth
+        deploymentConfig: oauth2-proxy
     spec:
       containers:
         - name: oauth2-proxy
