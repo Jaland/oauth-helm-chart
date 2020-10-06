@@ -16,6 +16,6 @@ oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cl
 #Required Values
 global:
   labels: []
-  appname: example-application
+  appname: oauth
   cluster:
     baseDomain: REQUIRED_GLOBAL_VARIBLE

@@ -3,9 +3,9 @@
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: feedback360
+  name: {{ $.Values.global.appname }}
   labels:
-    app: feedback360
+    app: {{ $.Values.global.appname }}
     name: oauth2-proxy
     {{- range $label := $.Values.global.labels }}
     {{ $label.key }} : {{ tpl $label.value $ }}

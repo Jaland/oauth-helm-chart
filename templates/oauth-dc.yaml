@@ -27,13 +27,13 @@ spec:
   revisionHistoryLimit: 10
   test: false
   selector:
-    deploymentConfig: feedback360
+    deploymentConfig: oauth
   template:
     metadata:
-      name: feedback360
+      name: oauth
       labels:
-        app: feedback360
-        deploymentConfig: feedback360
+        app: {{ $.Values.global.appname }}
+        deploymentConfig: oauth
     spec:
       containers:
         - name: oauth2-proxy
