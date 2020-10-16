@@ -3,7 +3,7 @@ enabled: true
 
 url: "https://{{ tpl $.Values.host $ }}"
 host: "{{ $.Values.global.appname }}-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}"
-oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/{{ $.Chart.Name }}"
+oidcIssuerUrl: "https://keycloak-{{ $.Release.Namespace }}.{{ $.Values.global.cluster.baseDomain }}/auth/realms/{{ $.Release.Name }}"
 
 #Required Values
 global:
